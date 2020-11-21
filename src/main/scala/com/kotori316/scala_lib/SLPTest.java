@@ -11,8 +11,9 @@ import java.util.stream.Collectors;
 
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.platform.launcher.Launcher;
@@ -24,14 +25,12 @@ import org.junit.platform.launcher.listeners.TestExecutionSummary;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 
+@Mod.EventBusSubscriber(modid = "slp-mixin", bus = Mod.EventBusSubscriber.Bus.MOD)
 class SLPTest {
     private static final Logger LOGGER = LogManager.getLogger("SLPTest");
 
-    static void registerTest() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(SLPTest::dataEvent);
-    }
-
-    private static void dataEvent(GatherDataEvent event) {
+    @SubscribeEvent
+    public static void dataEvent(GatherDataEvent event) {
         if (event.includeDev())
             event.getGenerator().addProvider(new TestProvider());
     }
