@@ -212,6 +212,32 @@ private[test] class CapOptionalTest {
   }
 
   @Test
+  def checkDifferenceWithOriginal(): Unit = {
+    val reference = new AtomicReference("First")
+    val lazyOptional = Cap.asJava(OptionT(Eval.always(Option(reference.get()))))
+
+    reference.set("Second")
+    assertEquals("Second", lazyOptional.orElse("NULL"))
+    reference.set("Third")
+    assertEquals("Third", lazyOptional.orElse("NULL"), "The difference")
+    lazyOptional.invalidate()
+    assertEquals("NULL", lazyOptional.orElse("NULL"))
+  }
+
+  @Test
+  def checkSameAsOriginal(): Unit = {
+    val reference = new AtomicReference("First")
+    val lazyOptional = Cap.asJava(OptionT(Eval.later(Option(reference.get()))))
+
+    reference.set("Second")
+    assertEquals("Second", lazyOptional.orElse("NULL"))
+    reference.set("Third")
+    assertEquals("Second", lazyOptional.orElse("NULL"), "The same effect with Eval.later")
+    lazyOptional.invalidate()
+    assertEquals("NULL", lazyOptional.orElse("NULL"))
+  }
+
+  @Test
   def mapTest(): Unit = {
     val a = Cap.asJava(Cap.make("aa"))
     val mapped = a.map(_.length)

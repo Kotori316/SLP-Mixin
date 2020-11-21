@@ -4,9 +4,11 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import net.minecraftforge.common.util.LazyOptional;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class OptionalTest1 {
     @Test
@@ -31,6 +33,7 @@ class OptionalTest1 {
     }
 
     @Test
+    @DisplayName("Check laziness 1")
     void test3() {
         AtomicReference<String> reference = new AtomicReference<>("First");
         LazyOptional<String> lazyOptional = LazyOptional.of(reference::get).lazyMap(s -> s + s);
@@ -41,5 +44,16 @@ class OptionalTest1 {
 
         lazyOptional.invalidate();
         assertEquals("NULL", lazyOptional.orElse("NULL"));
+    }
+
+    @Test
+    @DisplayName("Check laziness 2")
+    void test4() {
+        AtomicReference<String> reference = new AtomicReference<>("First");
+        LazyOptional<String> lazyOptional = LazyOptional.of(reference::get);
+        lazyOptional.invalidate();
+
+        Optional<String> normalOptional = lazyOptional.map(s -> s + s);
+        assertFalse(normalOptional.isPresent());
     }
 }
