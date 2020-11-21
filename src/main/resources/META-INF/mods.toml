@@ -1,33 +1,26 @@
-modLoader = "kotori_scala" #mandatory
-loaderVersion = "[2.13.3-bluid-7,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+modLoader = "kotori_scala"
+loaderVersion = "[2.13.3-bluid-7,)"
 license = "All rights reserved"
-issueTrackerURL = "https://github.com/Kotori316/SLP-Mixin/issues/" #optional
-[[mods]] #mandatory
-modId = "slp-mixin" #mandatory
-version = "${file.jarVersion}" #mandatory
-# A display name for the mod
-displayName = "SLP Mixin" #mandatory
-credits = "Thanks for this example mod goes to Java" #optional
-authors = "Kotori316" #optional
+issueTrackerURL = "https://github.com/Kotori316/SLP-Mixin/issues/"
+
+[[mods]]
+modId = "slp-mixin"
+version = "${file.jarVersion}"
+displayName = "SLP Mixin"
+credits = "Thanks for this example mod goes to Java"
+authors = "Kotori316"
 description = '''
 Plugin of Scalable Cat's Force.'''
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.slp-mixin]] #optional
-# the modid of the dependency
-modId = "forge" #mandatory
-# Does this dependency have to exist - if not, ordering below must be specified
-mandatory = true #mandatory
-# The version range of the dependency
-versionRange = "[35,)" #mandatory
-# An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+
+[[dependencies.slp-mixin]]
+modId = "forge"
+mandatory = true
+versionRange = "[35,)"
 ordering = "NONE"
-# Side this dependency is applied on - BOTH, CLIENT or SERVER
 side = "BOTH"
-# Here's another dependency
 [[dependencies.slp-mixin]]
 modId = "minecraft"
 mandatory = true
-# This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange = "[1.16.4,1.17)"
 ordering = "NONE"
 side = "BOTH"
