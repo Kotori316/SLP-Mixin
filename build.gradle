@@ -126,10 +126,10 @@ mixin {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.0'
+    minecraft 'net.minecraftforge:forge:1.16.4-35.1.4'
 
-    String scala_version = "2.13.3"
-    String cats_version = "2.2.0"
+    String scala_version = "2.13.4"
+    String cats_version = "2.3.0"
     String scala_major = scala_version.substring(0, scala_version.lastIndexOf("."))
     implementation group: "org.scala-lang", name: "scala-library", version: scala_version
     implementation group: 'org.typelevel', name: "cats-core_${scala_major}", version: cats_version
@@ -234,6 +234,17 @@ publishing {
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR") ?: ""
                 password = project.findProperty("githubToken") ?: System.getenv("REPO_TOKEN")
+            }
+        }
+        maven {
+            url = uri("https://pkgs.dev.azure.com/Kotori316/Kotori316/_packaging/test1/maven/v1")
+            name = 'test1'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = "Kotori316"
+                password = project.findProperty("azureToken") ?: System.getenv("AZURE_TOKEN")
             }
         }
     }
