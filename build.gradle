@@ -95,28 +95,11 @@ repositories {
         name = "Mixin"
         url = 'https://repo.spongepowered.org/maven'
     }
-    if (hasGitHubToken()) {
-        mavenLocal()
-        maven {
-            name = "GitHubPackages-SLP"
-            url = uri("https://maven.pkg.github.com/Kotori316/SLP")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR") ?: ""
-                password = project.findProperty("githubToken") ?: System.getenv("REPO_TOKEN")
-            }
-            content {
-                includeModule("com.kotori316", "ScalableCatsForce".toLowerCase())
-            }
-        }
-        // mavenLocal()
-    } else {
-        maven {
-            // Curse Forge
-            name 'Curse Forge'
-            url 'https://minecraft.curseforge.com/api/maven/'
-            content {
-                includeModule("scalable-cats-force", "ScalableCatsForce-2.13.3-build")
-            }
+    maven {
+        name = "AzureRepository-SLP"
+        url = uri("https://pkgs.dev.azure.com/Kotori316/minecraft/_packaging/mods/maven/v1")
+        content {
+            includeModule("com.kotori316", "ScalableCatsForce".toLowerCase())
         }
     }
 }
@@ -134,11 +117,7 @@ dependencies {
     implementation group: "org.scala-lang", name: "scala-library", version: scala_version
     implementation group: 'org.typelevel', name: "cats-core_${scala_major}", version: cats_version
 
-    if (hasGitHubToken()) {
-        implementation("com.kotori316:ScalableCatsForce:2.13.3-build-7:dev".toLowerCase())
-    } else {
-        implementation("scalable-cats-force:ScalableCatsForce-2.13.3-build:6:dev")
-    }
+    implementation(group: 'com.kotori316', name: 'ScalableCatsForce'.toLowerCase(Locale.ROOT), version: '2.13.4-build-1', classifier: 'dev')
     // Mixin
     annotationProcessor("org.spongepowered:mixin:0.8.2:processor")
 
@@ -237,14 +216,11 @@ publishing {
             }
         }
         maven {
-            url = uri("https://pkgs.dev.azure.com/Kotori316/Kotori316/_packaging/test1/maven/v1")
-            name = 'test1'
-            authentication {
-                basic(BasicAuthentication)
-            }
+            name = "AzureRepository"
+            url = uri("https://pkgs.dev.azure.com/Kotori316/minecraft/_packaging/mods/maven/v1")
             credentials {
-                username = "Kotori316"
-                password = project.findProperty("azureToken") ?: System.getenv("AZURE_TOKEN")
+                username = project.findProperty("azureUserName") ?: System.getenv("AZURE_USER_NAME") ?: ""
+                password = project.findProperty("azureToken") ?: System.getenv("AZURE_TOKEN") ?: "TOKEN"
             }
         }
     }
