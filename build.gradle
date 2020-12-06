@@ -207,14 +207,14 @@ publishing {
         }
     }
     repositories {
-        maven {
+        /*maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Kotori316/SLP")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR") ?: ""
                 password = project.findProperty("githubToken") ?: System.getenv("REPO_TOKEN")
             }
-        }
+        }*/
         maven {
             name = "AzureRepository"
             url = uri("https://pkgs.dev.azure.com/Kotori316/minecraft/_packaging/mods/maven/v1")
