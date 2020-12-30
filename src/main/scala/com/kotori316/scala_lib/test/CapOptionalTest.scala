@@ -253,7 +253,7 @@ private[test] class CapOptionalTest {
   def lazyMapTest(): Unit = {
     {
       val a = Cap.asJava(Cap.make("aa"))
-      val mapped = a.lazyMap(_.length)
+      val mapped = a.lazyMap[Int](_.length)
 
       assertEquals(2, mapped.orElse(45))
     }
@@ -266,7 +266,7 @@ private[test] class CapOptionalTest {
     }
     {
       val n = Cap.asJava(Cap.empty[String])
-      val mapped = n.lazyMap(_.length)
+      val mapped = n.lazyMap[Int](_.length)
 
       assertEquals(45, mapped.orElse(45))
     }
