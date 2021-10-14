@@ -108,7 +108,7 @@ mixin {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.8'
 
     String scala_version = "2.13.5"
     String cats_version = "2.6.0"
