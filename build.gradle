@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -108,7 +108,7 @@ mixin {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.8'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
 
     String scala_version = "2.13.5"
     String cats_version = "2.6.0"
